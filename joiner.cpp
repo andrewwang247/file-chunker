@@ -9,6 +9,7 @@ Copyright 2021. Siwei Wang.
 using std::ifstream;
 using std::ofstream;
 using std::string;
+using std::to_string;
 
 unsigned Joiner::chunk(const std::string& filename) {
   unsigned chunk_idx = 0;
@@ -20,4 +21,9 @@ unsigned Joiner::chunk(const std::string& filename) {
     ofp << ifp.rdbuf();
   }
   return chunk_idx;
+}
+
+string Joiner::report(const string& filename, unsigned num_chunks) {
+  return string("Joined ") + to_string(num_chunks) + " chunks into " +
+         filename + ".\n";
 }

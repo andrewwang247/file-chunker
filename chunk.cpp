@@ -22,6 +22,9 @@ using std::stoul;
 using std::string;
 using std::unique_ptr;
 
+// Defines default chunk size as 100 MB.
+static constexpr uint64_t default_chunk_sz = 100000000;
+
 /**
  * Parses arg to determine user operation choice.
  * @param arg User provided argument.
@@ -65,14 +68,10 @@ int main(int argc, char** argv) {
   const string filename(argv[1]);
   const auto is_split = user_chose_split(argv[2]);
   const auto chunk_sz =
-      (is_split && argc == 4) ? user_chunk_sz(argv[3]) : 100000000;
+      (is_split && argc == 4) ? user_chunk_sz(argv[3]) : default_chunk_sz;
   auto chunker = chunker_factory(is_split, chunk_sz);
   const auto num_chunks = chunker->chunk(filename);
-  if (is_split) {
-    cout << "Split " << filename << " into " << num_chunks << " chunks.\n";
-  } else {
-    cout << "Joined " << num_chunks << " chunks into " << filename << ".\n";
-  }
+  cout << chunker->report(filename, num_chunks);
 }
 
 bool user_chose_split(const char* arg) {

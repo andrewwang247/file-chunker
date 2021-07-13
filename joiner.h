@@ -18,4 +18,12 @@ class Joiner : public Chunker {
    * @returns Number of chunks combined.
    */
   unsigned chunk(const std::string& filename) override;
+
+  /**
+   * Reports result of splitting operation.
+   * @param filename Name of original file.
+   * @param num_chunks Number of chunks in operation.
+   * @returns Description of operation result.
+   */
+  std::string report(const std::string& filename, unsigned num_chunks) override;
 };

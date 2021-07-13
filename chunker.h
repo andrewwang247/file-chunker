@@ -14,6 +14,15 @@ class Chunker {
    * @returns Number of chunks produced/combined.
    */
   virtual unsigned chunk(const std::string& filename) = 0;
+
+  /**
+   * Reports result of chunking operation.
+   * @param filename Name of original file.
+   * @param num_chunks Number of chunks in operation.
+   * @returns Description of operation result.
+   */
+  virtual std::string report(const std::string& filename,
+                             unsigned num_chunks) = 0;
 };
 
 /**
